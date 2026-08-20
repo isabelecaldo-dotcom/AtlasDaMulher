@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas da Mulher</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Ícones -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+
+            <img src="{{ url_for('static', filename='imagens/logo.png') }}">
+
+            <div class="logo-texto">
+
+                <h2>ATLAS DA MULHER</h2>
+
+                <span>DE JARDIM (MS)</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="titulo">
+
+            <h3>Segregação, vulnerabilidade e desigualdades</h3>
+
+            <p>
+                de gênero em Jardim (MS)
+            </p>
+
+            <small>
+                Mapeando dados para promover equidades e direitos
+            </small>
+
+        </div>
+
+
+        <div class="pesquisa">
+
+            <input
+            type="text"
+            id="buscar"
+            placeholder="Buscar bairro, indicador...">
+
+            <button>
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <!-- MENU LATERAL -->
+
+        <aside>
+
+            <h4>INDICADORES</h4>
+
+             <ul class="lista-indicadores">
+                <li>População Feminina</li>
+                <li>Escolaridade</li>
+                <li>Renda</li>
+                <li>Cor / Raça</li>
+                <li>Trabalho</li>
+                <li onclick="mostrarChefiaFamilia()">
+                    Chefia de Família
+                </li>
+                <li>Vulnerabilidade Social</li>
+             </ul>
+
+            <input
+            type="text"
+            placeholder="Pesquisar">
+
+
+        </aside>
+
+        <section class="conteudo">
+
+             <div id="pagina-inicial">
+                <h1>Atlas da Mulher de Jardim (MS)</h1>
+
+                <p>
+                  Bem-vinda ao Atlas da Mulher de Jardim (MS).
+                </p>
+
+                <p>
+                  Este espaço apresenta informações sobre diferentes aspectos
+                  da realidade das mulheres do município, por meio de dados
+                  sociais, demográficos e territoriais.
+                </p>
+
+                <div class="mensagem-inicial">
+                  <strong>Selecione um indicador no menu ao lado</strong>
+                  <br>
+                  para visualizar os dados no mapa.
+               </div>
+             </div>
+
+          <div class="linha-superior">
+
+    <div class="area-mapa">
+
+        <h2 class="titulo-mapa">
+           Chefia de Família
+        </h2>
+
+        <div class="selecoes-chefia">
+
+            <button
+                class="selecao-chefia ativo"
+                onclick="mostrarMapaChefia('webgis', this)">
+                Mulheres chefes de domicílios pretas ou pardas
+            </button>
+
+            <button
+                class="selecao-chefia"
+                onclick="mostrarMapaChefia('mapa2', this)">
+                Mulheres chefes de domicílio que não sabem ler e escrever
+            </button>
+
+            <button
+                class="selecao-chefia"
+                onclick="mostrarMapaChefia('mapa3', this)">
+                Mulheres chefes de domicílio com cônjuge, filho ou enteado
+            </button>
+
+        </div>
+
+        <div class="mapa" id="mapa">
+
+            <iframe
+                src="{{ url_for('static', filename='webgis/index.html') }}"
+                frameborder="0">
+            </iframe>
+
+        </div>
+
+    </div>
+
+</div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

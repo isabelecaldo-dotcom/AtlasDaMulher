@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas da Mulher</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            <img src="{{ url_for('static', filename='imagens/logo.png') }}">
+            <div class="logo-texto">
+                <h2>ATLAS DA MULHER</h2>
+                <span>DE JARDIM (MS)</span>
+            </div>
+        </div>
+
+        <div class="titulo">
+            <h3>Segregação, vulnerabilidade e desigualdades</h3>
+            <p>
+                de gênero em Jardim (MS)
+            </p>
+            <small>
+                Mapeando dados para promover equidades e direitos
+            </small>
+        </div>
+
+    <div class="pesquisa">
+        <input
+            type="text"
+            id="buscar"
+             placeholder="Buscar indicador">
+            <button>
+             <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        <div id="resultados-busca" class="resultados-busca"></div>
+    </div>
+
+    </header>
+
+    <main>
+
+        <aside>
+
+            <h4>INDICADORES</h4>
+
+             <ul class="lista-indicadores">
+                <li onclick="mostrarPopulacaoFeminina()">População Feminina</li>
+                <li onclick="mostrarEscolaridade()">
+                  Escolaridade
+                </li>
+                <li onclick="mostrarRenda()">
+                    Renda
+                </li>
+                <li onclick="mostrarCorRaca()">Cor / Raça</li>
+                <li onclick="mostrarChefiaFamilia()">
+                    Chefia de Família
+                </li>
+             </ul>
+
+            <div class="info-lateral">
+                <div class="linha-info"></div>
+                <h3>COMO UTILIZAR</h3>
+                <p>
+                    <strong>●</strong> Selecione um indicador
+                </p>
+                <p>
+                    <strong>●</strong> Visualize os dados
+                </p>
+                <p>
+                    <strong>●</strong> Explore as informações
+                </p>
+            </div>
+
+        </aside>
+
+        <section class="conteudo">
+             <div id="pagina-inicial">
+                <h1>Atlas da Mulher de Jardim (MS)</h1>
+
+                <p>
+                  Bem-vinda ao Atlas da Mulher de Jardim (MS).
+                </p>
+
+                <p>
+                  Este espaço apresenta informações sobre diferentes aspectos
+                  da realidade das mulheres do município, por meio de dados
+                  sociais, demográficos e territoriais.
+                </p>
+
+                <div class="mensagem-inicial">
+                  <strong>Selecione um indicador no menu ao lado</strong>
+                  <br>
+                  para visualizar os dados no mapa.
+               </div>
+             </div>
+
+        <div class="linha-superior">
+
+        <div class="area-mapa">
+
+            <div class="selecoes-chefia" style="display: none;">
+                <button
+                    class="selecao-chefia ativo"
+                    onclick="mostrarMapaChefia('Webgis', this)">
+                </button>
+        </div>
+
+        <div class="mapa" id="mapa">
+            <iframe
+                src="{{ url_for('static', filename='Webgis/index.html') }}"
+                frameborder="0">
+            </iframe>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="grafico-chefia" style="display: none;">
+
+    <div class="mapa-renda">
+        <iframe
+            src="{{ url_for('static', filename='mapaRenda/index.html') }}"
+            frameborder="0">
+        </iframe>
+    </div>
+
+    <div class="chefia-grafico">
+        {{ grafico_chefia | safe }}
+    </div>
+
+    <img
+        class="grafico-renda-celular"
+        src="{{ url_for('static', filename='imagens/renda.png') }}"
+        alt="Gráfico de renda">
+
+    <div class="chefia-legenda">
+        <strong>Quantitativos</strong>
+
+        <div>
+            Mais de 3 SM: 14% &nbsp; | &nbsp;
+            Mais de 2 a 3 SM: 17%
+        </div>
+
+        <div>
+            Mais de 1 a 2 SM: 28% &nbsp; | &nbsp;
+            Até 1 SM: 41%
+        </div>
+    </div>
+
+</div>
+
+<div id="grafico-escolaridade" style="display: none;">
+
+    <div class="escolaridade-grafico">
+        {{ grafico_escolaridade | safe }}
+    </div>
+
+    <img
+    class="grafico-escolaridade-celular"
+    src="{{ url_for('static', filename='imagens/escolaridade.png') }}"
+    alt="Gráfico de escolaridade">
+
+    <div class="indicadores-escolaridade">
+
+        <div class="indicador-escolaridade">
+            <span class="indicador-titulo">Alfabetizadas</span>
+            <span class="indicador-valor">8.875</span>
+        </div>
+
+        <div class="indicador-escolaridade">
+            <span class="indicador-titulo">Não alfabetizadas</span>
+            <span class="indicador-valor">652</span>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="populacao-feminina" style="display: none;">
+
+    <div id="grafico-populacao" class="grafico-populacao">
+        {{ grafico_populacao | safe }}
+    </div>
+
+    <img
+        class="grafico-populacao-celular"
+        src="{{ url_for('static', filename='imagens/mulheres.png') }}"
+        alt="Gráfico da população feminina">
+
+</div>
+
+<div id="quantitativos-populacao" class="quantitativos-populacao" style="display: none;">
+    <h3>Quantitativos</h3>
+
+    <p>
+        Homens: 11.880
+        &nbsp; | &nbsp;
+        Mulheres: 12.101
+    </p>
+</div>
+
+<div id="grafico-raca" class="grafico-raca" style="display: none;">
+
+    <div class="grafico-raca-interativo">
+        {{ grafico_raca | safe }}
+    </div>
+
+    <div class="imagem-raca-celular">
+        <img
+            src="{{ url_for('static', filename='imagens/cor_raca.png') }}"
+            alt="Gráfico de cor e raça"
+        >
+    </div>
+
+</div>
+
+
+<div id="quantitativos-raca" class="quantitativos-raca" style="display: none;">
+
+    <h3>Quantitativos</h3>
+
+    <p>
+        Parda: 6.326
+        &nbsp; | &nbsp;
+        Branca: 5.182
+    </p>
+
+    <p>
+        Preta: 465
+        &nbsp; | &nbsp;
+        Amarela: 35
+        &nbsp; | &nbsp;
+        Indígena: 93
+    </p>
+
+</div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.5.0"></script>
+
+</body>
+</html>
